@@ -1,0 +1,71 @@
+---
+import { profile } from '../data/profile';
+const { user, domain, label, fallback } = profile.identity.email;
+---
+
+<a
+  href={fallback}
+  class="email-link"
+  data-u={user}
+  data-d={domain}
+  aria-label="Send direct email"
+>
+  <span class="email-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+    </svg>
+  </span>
+  <span class="email-text">{label}</span>
+</a>
+
+<script>
+  function setupEmailLinks() {
+    const links = document.querySelectorAll('.email-link');
+    links.forEach((link) => {
+      const u = link.getAttribute('data-u');
+      const d = link.getAttribute('data-d');
+      if (u && d) {
+        const fullAddr = `${u}@${d}`;
+        link.addEventListener('mouseenter', () => {
+          link.setAttribute('href', `mailto:${fullAddr}`);
+        });
+        link.addEventListener('focus', () => {
+          link.setAttribute('href', `mailto:${fullAddr}`);
+        });
+        link.addEventListener('click', (e) => {
+          link.setAttribute('href', `mailto:${fullAddr}`);
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupEmailLinks);
+  } else {
+    setupEmailLinks();
+  }
+</script>
+
+<style>
+  .email-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--accent-mint);
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .email-link:hover {
+    color: #ffffff;
+    transform: translateX(2px);
+  }
+
+  .email-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-mint);
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import { profile } from '../data/profile';
+const { about } = profile;
+---
+
+<section id="about" class="about-section">
+  <div class="container">
+    <div class="section-label">{about.sectionLabel}</div>
+    <h2 class="section-title">Root-Cause Analysis Across Complex Systems</h2>
+    <p class="section-desc">{about.summary}</p>
+
+    <div class="highlights-grid">
+      {about.highlights.map((item, idx) => (
+        <div class="card highlight-card">
+          <div class="highlight-number">0{idx + 1}</div>
+          <h3 class="highlight-title">{item.title}</h3>
+          <p class="highlight-desc">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-section {
+    padding: 4rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .highlight-card {
+    position: relative;
+    padding: 1.75rem;
+  }
+
+  .highlight-number {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-cyan);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  .highlight-title {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+  }
+
+  .highlight-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .highlights-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .highlights-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+const sortedPosts = blogPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout
+  title="Selected Notes & Writing | Abhishek Kumar Gupta"
+  description="Technical notes and practitioner essays on application security, continuous testing, and LLM risk."
+>
+  <div class="writing-page">
+    <div class="container writing-container">
+      <nav class="back-nav">
+        <a href="/" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>Back to overview</span>
+        </a>
+      </nav>
+
+      <header class="writing-header">
+        <div class="section-label">Selected Notes</div>
+        <h1 class="page-title">Practitioner Writing &amp; Research</h1>
+        <p class="page-subtitle">
+          Writing on application security, continuous testing, and LLM risk. These notes focus on architectural failure modes, real-world penetration testing observations, and practical defense models.
+        </p>
+      </header>
+
+      <div class="notes-feed">
+        {sortedPosts.map((post) => (
+          <article class="card note-entry">
+            <a href={`/blog/${post.id}`} class="note-link">
+              <div class="note-meta-bar">
+                <time datetime={post.data.date} class="note-date">
+                  {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+                {post.data.readingTime && <span class="meta-dot">•</span>}
+                {post.data.readingTime && <span class="note-read-time">{post.data.readingTime}</span>}
+              </div>
+
+              <h2 class="note-title">{post.data.title}</h2>
+              <p class="note-excerpt">{post.data.description}</p>
+
+              <div class="note-footer">
+                <div class="note-tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="badge badge-cyan">{tag}</span>
+                  ))}
+                </div>
+                <span class="read-action">Read note →</span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .writing-page {
+    padding: 3.5rem 0 6rem;
+  }
+
+  .writing-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .back-nav {
+    margin-bottom: 2rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-family: var(--font-mono);
+    color: var(--accent-mint);
+    transition: all 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: #ffffff;
+    transform: translateX(-3px);
+  }
+
+  .writing-header {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.12rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .notes-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .note-entry {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .note-link {
+    display: block;
+    padding: 2rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .note-link:hover .note-title {
+    color: var(--accent-mint);
+  }
+
+  .note-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .meta-dot { color: var(--text-dim); }
+
+  .note-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+    transition: color 0.15s ease;
+  }
+
+  .note-excerpt {
+    font-size: 0.98rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 1.25rem;
+  }
+
+  .note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .read-action {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent-mint);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,296 @@
+---
+import { profile } from '../data/profile';
+const { university, certifications, languages } = profile.educationAndCredentials;
+---
+
+<section id="education" class="education-section">
+  <div class="container">
+    <div class="section-label">Credentials</div>
+    <h2 class="section-title">Education &amp; Credentials</h2>
+    <p class="section-desc">
+      Rigorous foundation in computer science and systems theory, paired with professional cybersecurity certifications and multi-lingual collaboration capabilities.
+    </p>
+
+    <div class="edu-stack">
+      <!-- 1. Degree & Systems Coursework (Full Width) -->
+      <div class="card degree-card">
+        <div class="degree-header">
+          <div class="degree-main-info">
+            <span class="badge badge-cyan">B.Tech Degree</span>
+            <h3 class="degree-title">{university.degree}</h3>
+            <p class="institution-text">{university.institution}</p>
+          </div>
+          <div class="degree-period">
+            <span class="period-pill">{university.period}</span>
+            <span class="location-pill">{university.location}</span>
+          </div>
+        </div>
+
+        <div class="coursework-section">
+          <h4 class="sub-heading">Foundations &amp; Core Systems Coursework:</h4>
+          <div class="course-pills">
+            {university.coursework.map((course) => (
+              <span class="course-tag">{course}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Certifications (Responsive Auto-Fill Grid: Scales to any number of certs) -->
+      <div class="card certs-card">
+        <div class="certs-header">
+          <h3 class="card-heading">Professional Certifications</h3>
+          <span class="certs-count-badge">{certifications.length} Credentials</span>
+        </div>
+
+        <div class="certs-grid">
+          {certifications.map((cert) => (
+            <div class="cert-item">
+              <div class="cert-top">
+                <span class="cert-name">{cert.name}</span>
+                {cert.badge && <span class="badge">{cert.badge}</span>}
+              </div>
+              <div class="cert-bottom">
+                <span class="cert-issuer">{cert.issuer}</span>
+                <span class="cert-period">{cert.period}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 3. Working Languages -->
+      <div class="card languages-card">
+        <h3 class="card-heading">Working Languages</h3>
+        <div class="languages-grid">
+          {languages.map((lang) => (
+            <div class="lang-item">
+              <span class="lang-name">{lang.name}</span>
+              <span class="lang-level">{lang.level}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .education-section {
+    padding: 4.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .edu-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+
+  .degree-card, .certs-card, .languages-card {
+    padding: 2rem;
+  }
+
+  .degree-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .degree-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .institution-text {
+    font-size: 0.95rem;
+    color: var(--accent-mint);
+    font-weight: 500;
+  }
+
+  .degree-period {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .period-pill, .location-pill {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .coursework-section {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 1.25rem;
+  }
+
+  .sub-heading {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.85rem;
+  }
+
+  .course-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .course-tag {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+  }
+
+  /* Certifications Responsive Grid */
+  .certs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .certs-count-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-cyan);
+    background: rgba(0, 212, 255, 0.08);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 1.15rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    gap: 0.75rem;
+    transition: all 0.2s ease;
+  }
+
+  .cert-item:hover {
+    border-color: var(--border-mint);
+    background: rgba(0, 255, 157, 0.03);
+    transform: translateY(-2px);
+  }
+
+  .cert-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .cert-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  .cert-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 0.5rem;
+  }
+
+  .cert-issuer {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .cert-period {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  /* Languages */
+  .languages-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .lang-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.85rem 1rem;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+  }
+
+  .lang-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .lang-level {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 900px) {
+    .languages-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .degree-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .degree-period {
+      align-items: flex-start;
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .certs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .languages-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

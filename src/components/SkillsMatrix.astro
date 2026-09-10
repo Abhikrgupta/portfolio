@@ -1,0 +1,98 @@
+---
+import { profile } from '../data/profile';
+const { skillsGroups } = profile;
+---
+
+<section id="skills" class="skills-section">
+  <div class="container">
+    <div class="section-label">Capabilities</div>
+    <h2 class="section-title">Skills &amp; Technical Matrix</h2>
+    <p class="section-desc">
+      A structured breakdown of offensive testing capabilities, risk governance frameworks, emerging AI security methodologies, and hands-on tooling.
+    </p>
+
+    <div class="skills-grid">
+      {skillsGroups.map((group) => (
+        <div class="card skill-group-card">
+          <div class="group-header">
+            <span class="group-number">GROUP {group.number}</span>
+            <h3 class="group-name">{group.name}</h3>
+          </div>
+
+          <div class="skills-chips">
+            {group.skills.map((skill) => (
+              <span class="skill-chip">{skill}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    padding: 4.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+
+  .skill-group-card {
+    padding: 2rem;
+  }
+
+  .group-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.85rem;
+  }
+
+  .group-number {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-mint);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .group-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .skills-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .skill-chip {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+  }
+
+  .skill-chip:hover {
+    border-color: var(--border-mint);
+    color: var(--accent-mint);
+    background: rgba(0, 255, 157, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

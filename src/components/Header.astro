@@ -1,0 +1,216 @@
+---
+const navItems = [
+  { label: "About", href: "/#about" },
+  { label: "Focus", href: "/#focus" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Education", href: "/#education" },
+  { label: "Writing", href: "/writing" },
+  { label: "Contact", href: "/#contact" }
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand-logo" aria-label="Abhishek Kumar Gupta homepage">
+      <span class="logo-bracket">&lt;</span>
+      <span class="logo-text">AKG</span>
+      <span class="logo-slash">&#47;&gt;</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      {navItems.map((item) => (
+        <a href={item.href} class="nav-link">{item.label}</a>
+      ))}
+    </nav>
+
+    <!-- Mobile Hamburger Toggle -->
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <nav class="mobile-nav" aria-label="Mobile Navigation">
+      {navItems.map((item) => (
+        <a href={item.href} class="mobile-nav-link">{item.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-toggle');
+  const drawer = document.getElementById('mobile-drawer');
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (toggleBtn && drawer) {
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!isOpen));
+      toggleBtn.classList.toggle('is-active');
+      drawer.classList.toggle('is-open');
+      drawer.setAttribute('aria-hidden', String(isOpen));
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.classList.remove('is-active');
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6, 10, 18, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-subtle);
+    width: 100%;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .brand-logo {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-logo:hover {
+    color: var(--accent-mint);
+  }
+
+  .logo-bracket {
+    color: var(--accent-mint);
+  }
+
+  .logo-text {
+    margin: 0 0.2rem;
+  }
+
+  .logo-slash {
+    color: var(--accent-cyan);
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+    padding: 0.25rem 0;
+  }
+
+  .nav-link:hover {
+    color: var(--accent-mint);
+  }
+
+  .mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 101;
+  }
+
+  .bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    border-radius: 2px;
+  }
+
+  .mobile-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background-color: var(--accent-mint);
+  }
+
+  .mobile-toggle.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background-color: var(--accent-mint);
+  }
+
+  .mobile-drawer {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    .mobile-toggle {
+      display: flex;
+    }
+
+    .mobile-drawer {
+      display: block;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      width: 100%;
+      background: rgba(12, 18, 32, 0.98);
+      border-bottom: 1px solid var(--border-subtle);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+    }
+
+    .mobile-drawer.is-open {
+      max-height: 380px;
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      padding: 1.25rem 1.5rem 1.5rem;
+      gap: 1rem;
+    }
+
+    .mobile-nav-link {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mobile-nav-link:hover {
+      color: var(--accent-mint);
+      padding-left: 0.5rem;
+    }
+  }
+</style>

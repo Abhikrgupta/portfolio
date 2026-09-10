@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalHero from '../components/TerminalHero.astro';
+import StatCard from '../components/StatCard.astro';
+import AboutSection from '../components/AboutSection.astro';
+import FocusSection from '../components/FocusSection.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import SkillsMatrix from '../components/SkillsMatrix.astro';
+import Recommendation from '../components/Recommendation.astro';
+import ContactCard from '../components/ContactCard.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+const sortedPosts = blogPosts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<BaseLayout>
+  <!-- Hero Section with Avatar and Interactive Terminal -->
+  <TerminalHero />
+
+  <!-- 4 Core Professional Stats -->
+  <StatCard />
+
+  <!-- About / Profile Section -->
+  <AboutSection />
+
+  <!-- 4 Thematic Focus Pillars -->
+  <FocusSection />
+
+  <!-- Professional Trajectory & Experience -->
+  <Experience />
+
+  <!-- Education & Credentials -->
+  <Education />
+
+  <!-- Skills & Capabilities Matrix -->
+  <SkillsMatrix />
+
+  <!-- Colleague Recommendation Card -->
+  <Recommendation />
+
+  <!-- Selected Notes / Writing Preview -->
+  <section id="writing" class="writing-preview-section">
+    <div class="container">
+      <div class="writing-preview-header">
+        <div>
+          <div class="section-label">Selected Notes</div>
+          <h2 class="section-title">Practitioner Notes &amp; Research</h2>
+          <p class="section-desc">
+            Writing on application security, continuous testing, and LLM risk.
+          </p>
+        </div>
+        <a href="/writing" class="btn btn-secondary view-all-btn">
+          <span>View all notes</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="articles-list">
+        {sortedPosts.slice(0, 3).map((post) => (
+          <a href={`/blog/${post.id}`} class="card article-preview-card">
+            <div class="article-preview-meta">
+              <time datetime={post.data.date} class="post-date">
+                {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+              {post.data.readingTime && <span class="meta-dot">•</span>}
+              {post.data.readingTime && <span class="post-time">{post.data.readingTime}</span>}
+            </div>
+
+            <h3 class="article-preview-title">{post.data.title}</h3>
+            <p class="article-preview-desc">{post.data.description}</p>
+
+            <div class="article-preview-footer">
+              <div class="article-tags">
+                {post.data.tags.map((tag) => (
+                  <span class="badge badge-cyan">{tag}</span>
+                ))}
+              </div>
+              <span class="read-more">Read note →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Uniform Contact Section -->
+  <ContactCard />
+</BaseLayout>
+
+<style>
+  .writing-preview-section {
+    padding: 4.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .writing-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .article-preview-card {
+    display: block;
+    padding: 1.75rem 2rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .article-preview-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-mint);
+  }
+
+  .article-preview-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.65rem;
+  }
+
+  .meta-dot { color: var(--text-dim); }
+
+  .article-preview-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.65rem;
+    line-height: 1.35;
+    transition: color 0.15s ease;
+  }
+
+  .article-preview-card:hover .article-preview-title {
+    color: var(--accent-mint);
+  }
+
+  .article-preview-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .article-preview-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 1rem;
+  }
+
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .read-more {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent-mint);
+    font-weight: 600;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary {
+    background: rgba(12, 18, 32, 0.9);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--border-mint);
+    color: var(--accent-mint);
+  }
+</style>

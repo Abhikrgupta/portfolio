@@ -1,0 +1,197 @@
+---
+import { profile } from '../data/profile';
+const { experience } = profile;
+---
+
+<section id="experience" class="experience-section">
+  <div class="container">
+    <div class="section-label">Trajectory</div>
+    <h2 class="section-title">Professional Consulting &amp; Engineering</h2>
+    <p class="section-desc">
+      Deliberate security practice across Big 4 advisory and high-scale enterprise engineering: finding exploitable issues, evaluating actual business impact, and communicating technical risk to engineering and leadership.
+    </p>
+
+    <div class="timeline">
+      {experience.map((item) => (
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="card timeline-card">
+            <div class="timeline-header">
+              <div class="role-meta">
+                <h3 class="role-title">{item.role}</h3>
+                <div class="company-row">
+                  <span class="company-name">{item.company}</span>
+                  <span class="location-divider">•</span>
+                  <span class="location-text">{item.location}</span>
+                </div>
+              </div>
+
+              <div class="period-meta">
+                <span class="period-badge">{item.period}</span>
+                {item.badge && <span class="current-badge">{item.badge}</span>}
+              </div>
+            </div>
+
+            <p class="role-summary">{item.summary}</p>
+
+            <div class="highlights-box">
+              <ul class="role-highlights">
+                {item.highlights.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience-section {
+    padding: 4.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 7px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-mint), var(--accent-cyan), rgba(139, 155, 184, 0.15));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 1.5rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg-base);
+    border: 3px solid var(--accent-mint);
+    box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+    z-index: 2;
+  }
+
+  .timeline-card {
+    padding: 2rem;
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .role-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .company-row {
+    font-size: 0.95rem;
+    color: var(--accent-mint);
+    font-weight: 600;
+  }
+
+  .location-divider {
+    margin: 0 0.4rem;
+    color: var(--text-dim);
+  }
+
+  .location-text {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .period-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .period-badge {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .current-badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-mint);
+    background: rgba(0, 255, 157, 0.1);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    font-weight: 600;
+  }
+
+  .role-summary {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .role-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .role-highlights li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .role-highlights li::before {
+    content: "›";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--accent-mint);
+    font-weight: bold;
+  }
+
+  @media (max-width: 650px) {
+    .timeline-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .period-meta {
+      align-items: flex-start;
+      flex-direction: row;
+    }
+  }
+</style>

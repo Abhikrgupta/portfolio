@@ -1,0 +1,83 @@
+---
+import { profile } from '../data/profile';
+const { identity } = profile;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">
+        <span class="logo-bracket">&lt;</span>AKG<span class="logo-slash">&#47;&gt;</span>
+      </div>
+      <p class="footer-copy">
+        &copy; {currentYear} {identity.fullName}. Security Engineering &amp; Research.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href={identity.linkedIn} target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+      <a href={identity.github} target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+      <a href="/background" class="footer-link">Background</a>
+      <a href="/writing" class="footer-link">Writing</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border-subtle);
+    padding: 2.5rem 0;
+    margin-top: auto;
+    background: rgba(6, 10, 18, 0.95);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-brand {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .logo-bracket { color: var(--accent-mint); }
+  .logo-slash { color: var(--accent-cyan); }
+
+  .footer-copy {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--accent-mint);
+  }
+
+  @media (max-width: 600px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+  }
+</style>

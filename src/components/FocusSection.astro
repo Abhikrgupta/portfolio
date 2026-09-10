@@ -1,0 +1,183 @@
+---
+import { profile } from '../data/profile';
+const { focusAreas } = profile;
+---
+
+<section id="focus" class="focus-section">
+  <div class="container">
+    <div class="section-label">Focus Areas</div>
+    <h2 class="section-title">Core Disciplines &amp; Research Inquiries</h2>
+    <p class="section-desc">
+      A deliberate security practice centered on structural failure modes: from persistent access-control gaps in enterprise platforms to emerging non-deterministic boundaries in AI systems.
+    </p>
+
+    <div class="focus-grid">
+      {focusAreas.map((area, idx) => (
+        <div class="card focus-card">
+          <div class="focus-header">
+            <div class="focus-index">PILLAR 0{idx + 1}</div>
+            <div class="focus-tags">
+              {area.tags.map((tag) => (
+                <span class="badge badge-cyan">{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          <h3 class="focus-title">{area.title}</h3>
+          
+          <div class="thesis-box">
+            <span class="thesis-label">Core Thesis:</span>
+            <p class="thesis-text">{area.thesis}</p>
+          </div>
+
+          <div class="topics-block">
+            <h4 class="topics-heading">Key Topics &amp; Investigation:</h4>
+            <ul class="topics-list">
+              {area.topics.map((topic) => (
+                <li>{topic}</li>
+              ))}
+            </ul>
+          </div>
+
+          {area.openQuestions && (
+            <div class="questions-block">
+              <h4 class="questions-heading">Open Inquiries:</h4>
+              <ul class="questions-list">
+                {area.openQuestions.map((q) => (
+                  <li>{q}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .focus-section {
+    padding: 4.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem;
+    margin-top: 2rem;
+  }
+
+  .focus-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .focus-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .focus-index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-mint);
+    letter-spacing: 0.08em;
+  }
+
+  .focus-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .focus-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .thesis-box {
+    background: rgba(0, 0, 0, 0.35);
+    border-left: 3px solid var(--accent-mint);
+    padding: 0.85rem 1rem;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .thesis-label {
+    display: block;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  .thesis-text {
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .topics-block {
+    margin-bottom: 1.25rem;
+  }
+
+  .topics-heading, .questions-heading {
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.65rem;
+  }
+
+  .topics-list, .questions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .topics-list li, .questions-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 0.45rem;
+    position: relative;
+    padding-left: 1.25rem;
+  }
+
+  .topics-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--accent-mint);
+  }
+
+  .questions-block {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border-subtle);
+  }
+
+  .questions-list li::before {
+    content: "›";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--accent-cyan);
+    font-weight: bold;
+  }
+
+  @media (max-width: 850px) {
+    .focus-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

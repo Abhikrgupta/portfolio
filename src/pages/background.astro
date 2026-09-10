@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+const { identity } = profile;
+---
+
+<BaseLayout
+  title={`Background & Practice | ${identity.fullName}`}
+  description="Consulting as deliberate security practice: scoping multi-tenant codebases, building indisputable evidence, and translating technical risk into business impact."
+>
+  <div class="background-page">
+    <div class="container letter-container">
+      <nav class="back-nav">
+        <a href="/" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>Back to overview</span>
+        </a>
+      </nav>
+
+      <article class="letter-content">
+        <header class="letter-header">
+          <div class="section-label">Background &amp; Philosophy</div>
+          <h1 class="letter-title">Consulting as Deliberate Security Practice</h1>
+          <p class="letter-date">A personal reflection on method, evidence, and client confidentiality.</p>
+        </header>
+
+        <section class="prose-body">
+          <p>
+            When engineers ask why I chose consulting across Deloitte and PwC rather than embedding early within a single product company, my answer centers on pattern recognition.
+          </p>
+
+          <p>
+            Securing a single application gives you depth in that specific stack. But working across dozens of enterprise environments gives you something equally valuable: a continuous, comparative education in how software breaks at scale. Over several years in professional advisory, you witness the same structural failure classes repeat across banking platforms, logistics microservices, healthcare APIs, and identity providers.
+          </p>
+
+          <h2>The Discipline of Scoping and Context</h2>
+          <p>
+            Every security engagement begins with a fundamental constraint: time is bounded, but attack surfaces are vast. Scoping is not administrative overhead; it is the first technical filter.
+          </p>
+          <p>
+            A good penetration tester begins by understanding the business logic: What assets are most critical? Where does money or identity change state? Which microservices cross external boundaries? Mapping the data flow before firing a single proxy request separates superficial automated testing from adversarial analysis that reveals true enterprise exposure.
+          </p>
+
+          <h2>Evidence over Assertion</h2>
+          <p>
+            In professional services, discovering a vulnerability is only half the mandate. The second half is constructing clear, reproducible evidence.
+          </p>
+          <p>
+            Engineering teams have busy roadmaps and tight release cycles. An ambiguous claim or an unverified scanner export will rightfully be dismissed. A credible security engineer builds concise proofs of concept: demonstrating exactly how a parameter manipulation leads to horizontal privilege escalation, or how an improper token validation allows cross-tenant data access. When the evidence is unambiguous, engineering teams prioritize remediation immediately.
+          </p>
+
+          <h2>Translating Technical Vulnerability into Business Risk</h2>
+          <p>
+            Security findings are too often delivered as technical jargon: CVSS vectors, stack traces, and RFC violations. While engineers need those technical specifics to patch the flaw, executive leadership needs something different:
+          </p>
+          <ul class="clean-list">
+            <li>What does this mean for our customer data?</li>
+            <li>Can an external attacker pivot from this non-production service into our core ledger?</li>
+            <li>What is the regulatory and compliance exposure under relevant data privacy mandates?</li>
+          </ul>
+          <p>
+            Effective security practice requires operating fluently at both altitudes: discussing memory safety or token claims mapping with developers in the morning, and explaining strategic risk prioritization to Chief Information Security Officers in the afternoon.
+          </p>
+
+          <h2>The Principle of Client Confidentiality</h2>
+          <p>
+            A deliberate principle of my public portfolio is that you will not find a list of past client company names, proprietary architecture diagrams, or specific incident engagement details here.
+          </p>
+          <p>
+            Enterprise security advisory relies on absolute discretion. Clients invite penetration testers into their most sensitive environments: during core banking migrations, identity overhauls, and pre-IPO audits: under mutual trust. Respecting that trust means discussing systemic failure modes, threat modeling methodologies, and defensive taxonomies in the abstract, while keeping specific enterprise identities strictly confidential.
+          </p>
+
+          <h2>Looking Ahead: The Next Set of Boundaries</h2>
+          <p>
+            As organizations introduce Large Language Models into user-facing workflows, the security engineering challenge remains consistent: understanding the boundary between untrusted inputs and privileged execution.
+          </p>
+          <p>
+            Whether evaluating an enterprise SAML migration, auditing microservice authorization gates, or hardening an autonomous tool-calling agent, the core objective remains constant: identifying the failures that keep recurring, understanding their root causes, and helping teams build resilient software.
+          </p>
+
+          <div class="letter-signoff">
+            <p><strong>Abhishek Kumar Gupta</strong></p>
+            <p class="signoff-role">Security Engineer @ PwC</p>
+            <p class="signoff-loc">Kolkata, West Bengal, India</p>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .background-page {
+    padding: 3.5rem 0 6rem;
+  }
+
+  .letter-container {
+    max-width: 72ch;
+    margin: 0 auto;
+  }
+
+  .back-nav {
+    margin-bottom: 2.5rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-family: var(--font-mono);
+    color: var(--accent-mint);
+    transition: all 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: #ffffff;
+    transform: translateX(-3px);
+  }
+
+  .letter-header {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .letter-title {
+    font-size: 2.35rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin: 0.5rem 0 0.85rem;
+  }
+
+  .letter-date {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .prose-body {
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: #cbd5e1;
+  }
+
+  .prose-body p {
+    margin-bottom: 1.65rem;
+  }
+
+  .prose-body h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 2.75rem 0 1rem;
+    letter-spacing: -0.015em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.4rem;
+  }
+
+  .clean-list {
+    margin: 1.25rem 0 1.75rem 1.5rem;
+  }
+
+  .clean-list li {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .letter-signoff {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+    font-family: var(--font-mono);
+  }
+
+  .letter-signoff p {
+    margin-bottom: 0.25rem;
+  }
+
+  .signoff-role {
+    font-size: 0.9rem;
+    color: var(--accent-mint);
+  }
+
+  .signoff-loc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+</style>
